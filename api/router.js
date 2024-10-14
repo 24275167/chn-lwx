@@ -1,7 +1,6 @@
 const express = require('express');
 const mysql = require('./crowdfunding_db.js');
 const router = express.Router()
-// 分类
 router.get("/categories", async (req, res) => {
     try {
         const [data] = await mysql.query("SELECT * FROM CATEGORY");
@@ -11,7 +10,6 @@ router.get("/categories", async (req, res) => {
     }
 });
 
-// 获取筹款对应的捐赠列表
 router.get('/donations', async (req, res) => {
     const sql = `SELECT * FROM DONATION ORDER BY date DESC`;
     try {
@@ -21,7 +19,7 @@ router.get('/donations', async (req, res) => {
         res.status(500).send({ error: err.message });
     }
 });
-// 获取筹款对应的捐赠列表
+
 router.get('/donation/:FUNDRAISER_ID', async (req, res) => {
     const { fundraiserId } = req.params;
     const sql = `SELECT * FROM DONATION WHERE FUNDRAISER_ID = ? ORDER BY date DESC`;
@@ -33,7 +31,6 @@ router.get('/donation/:FUNDRAISER_ID', async (req, res) => {
     }
 
 });
-// 捐赠接口
 router.post('/donation', async (req, res) => {
     const { AMOUNT, GIVER, FUNDRAISER_ID } = req.body;
     if (!AMOUNT || !GIVER || !FUNDRAISER_ID) {
@@ -50,21 +47,18 @@ router.post('/donation', async (req, res) => {
 });
 
 
-
-// 数据处理
 async function dataHandler(FUNDRAISER) {
     if (FUNDRAISER.length) {
         const [CATEGORY] = await mysql.query('SELECT * FROM CATEGORY');
         return FUNDRAISER.map(item => {
             const category = CATEGORY.find(c => c.CATEGORY_ID === item.CATEGORY_ID);
-            item['CATEGORY_NAME'] = category ? category.NAME : null;  // 提取并赋值类别名称
+            item['CATEGORY_NAME'] = category ? category.NAME : null;  
             return item;
         });
     }
     return FUNDRAISER;
 }
 
-// 筹款项目列表
 router.get("/fundraisers", async (req, res) => {
     try {
         const [rows] = await mysql.query('SELECT * FROM FUNDRAISER ORDER BY FUNDRAISER_ID DESC');
@@ -75,7 +69,6 @@ router.get("/fundraisers", async (req, res) => {
     }
 });
 
-// 查询单个筹款项目
 router.get("/fundraiser/:id", async (req, res) => {
     const fundraiserId = req.params.id;
     try {
@@ -91,7 +84,6 @@ router.get("/fundraiser/:id", async (req, res) => {
     }
 });
 
-// 创建新的筹款项目
 router.post("/fundraiser", async (req, res) => {
     const { ORGANIZER, CAPTION, CATEGORY_ID, CITY, CURRENT_FUNDING, TARGET_FUNDING, ACTIVE } = req.body;
     try {
@@ -103,7 +95,6 @@ router.post("/fundraiser", async (req, res) => {
     }
 });
 
-// 更新现有筹款项目
 router.put("/fundraiser/:id", async (req, res) => {
     const fundraiserId = req.params.id;
     const { ORGANIZER, CAPTION, CATEGORY_ID, CITY, CURRENT_FUNDING, TARGET_FUNDING } = req.body;
@@ -128,11 +119,9 @@ router.put("/fundraiser/:id", async (req, res) => {
     }
 });
 
-// 删除筹款项目
 router.delete("/fundraiser/:id", async (req, res) => {
     const fundraiserId = req.params.id;
     try {
-        // 查询是否有捐赠
         const [rows] = await mysql.query('SELECT * FROM FUNDRAISER WHERE FUNDRAISER_ID = ?', [fundraiserId]);
         if (Number(rows[0].CURRENT_FUNDING)) {
             return res.status(200).send({ message: 'Donated fundraisers cannot be deleted!' });
@@ -148,7 +137,6 @@ router.delete("/fundraiser/:id", async (req, res) => {
 });
 
 
-// 搜索
 router.get("/search", async (req, res) => {
     const { organizer, city, category } = req.query;
     let sql = ''
