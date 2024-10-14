@@ -39,7 +39,7 @@ const overlay = document.getElementById('overlay')
 const drawerClose = document.getElementById('drawerClose');
 const fundraiserBody = document.getElementById('fundraiserBody');
 const drawerConfirm = document.getElementById('drawerConfirm');
-// 填充Categories
+
 function renderCategories(data) {
     for (const item of data) {
         const option = document.createElement('option')
@@ -48,15 +48,15 @@ function renderCategories(data) {
         category.appendChild(option)
     }
 }
-// 获取Fundraisers列表
+
 const fetchFundraisers = async () => {
-    const data = await request.get('fundraisers'); // 替换为实际 API
+    const data = await request.get('fundraisers'); 
     renderTable(data);
 };
 
-// 填充Fundraisers表格
+
 const renderTable = (fundraisers) => {
-    fundraiserBody.innerHTML = ''; // 清空当前表格
+    fundraiserBody.innerHTML = ''; 
     fundraisers.forEach(fundraiser => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -82,16 +82,15 @@ create.addEventListener('click', async function () {
     isCreate = true
     drawerTitle.innerHTML = "Create"
     overlay.classList.add('open')
-    drawer.classList.add('open'); // 显示抽屉
+    drawer.classList.add('open'); 
 })
 
-// 打开
 let updateCurrentId = null;
 const openDrawerForUpdate = async (id) => {
     isCreate = false
     drawerTitle.innerHTML = "Update"
     updateCurrentId = id
-    const data = await request.get(`fundraiser/${id}`); // 替换为实际 API
+    const data = await request.get(`fundraiser/${id}`); 
     data.ACTIVE = Boolean(data.ACTIVE)
     for (const item of inputs) {
         if (item.type !== 'checkbox') {
@@ -102,18 +101,18 @@ const openDrawerForUpdate = async (id) => {
         
     }
     overlay.classList.add('open')
-    drawer.classList.add('open'); // 显示抽屉
+    drawer.classList.add('open'); 
 };
-// 删除Fundraisers
+
 const deleteFundraiser = async (id) => {
     const confirmDelete = window.confirm('Confirm to delete this data?')
     if (confirmDelete) {
         const data = await request.delete(`fundraiser/${id}`);
         alert(data.message)
-        fetchFundraisers(); // 刷新列表
+        fetchFundraisers(); 
     }
 };
-// 添加事件
+
 const addEventListeners = () => {
     const updateButtons = document.querySelectorAll('.update');
     const deleteButtons = document.querySelectorAll('.delete');
@@ -130,7 +129,7 @@ const addEventListeners = () => {
         });
     });
 };
-// 取消
+
 function cancel() {
     updateCurrentId = null
     drawer.classList.remove('open');
@@ -145,7 +144,7 @@ function cancel() {
 }
 drawerClose.addEventListener('click', cancel);
 
-// 保存新的Fundraisers
+
 drawerConfirm.addEventListener('click', async () => {
     const data = {}
     for (const item of inputs) {
@@ -166,7 +165,7 @@ drawerConfirm.addEventListener('click', async () => {
         await request.put(`fundraiser/${updateCurrentId}`, data);
         alert('update success')
     }
-    fetchFundraisers(); // 刷新列表
+    fetchFundraisers(); 
     cancel()
 });
 
