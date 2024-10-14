@@ -1,9 +1,9 @@
--- 创建CATEGORY表
+
 CREATE TABLE CATEGORY (
   CATEGORY_ID INT PRIMARY KEY AUTO_INCREMENT,
   NAME VARCHAR(100) NOT NULL
 );
--- 创建FUNDRAISER表
+
 CREATE TABLE FUNDRAISER (
   FUNDRAISER_ID INT PRIMARY KEY AUTO_INCREMENT,
   ORGANIZER VARCHAR(255) NOT NULL,
@@ -23,9 +23,9 @@ CREATE TABLE DONATION (
     FUNDRAISER_ID INT,
     FOREIGN KEY (FUNDRAISER_ID) REFERENCES FUNDRAISER(FUNDRAISER_ID)
 );
--- 添加CATEGORY数据
+
 INSERT INTO CATEGORY (NAME) VALUES ('Health'), ('Education'),('Animal Welfare'), ('Environment'), ('Arts & Culture');
--- 添加FUNDRAISER数据
+
 INSERT INTO FUNDRAISER (ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID) 
 VALUES 
   ('Emily', 'Animal Rescue Mission Expansion', 10000, 6500, 'Adelaide', TRUE, 1),
@@ -39,7 +39,7 @@ VALUES
   ('Ella', 'Clean Water Initiative for Drought Areas', 18000, 14500, 'Hobart', TRUE, 4),
   ('Ava', 'Library Resources for Children', 15000, 11200, 'Perth', TRUE, 1);
 
--- 添加数据
+
 INSERT INTO DONATION (AMOUNT, GIVER, FUNDRAISER_ID) VALUES 
 (100.00, 'Alice', 1), (50.00, 'Bob', 2), (200.00, 'Charlie', 3), 
 (75.00, 'David', 4), (150.00, 'Emma', 5), (300.00, 'Frank', 6), 
