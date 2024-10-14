@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="header">
+        Crowdfunding Admin
+    </div>
+    <section>
+        <button id="create" class="btn-primary">Create</button>
+        <table class="table" id="fundraiserTable">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>organizer</th>
+                    <th>caption</th>
+                    <th>category</th>
+                    <th>city</th>
+                    <th>target funding</th>
+                    <th>current funding</th>
+                    <th>operate</th>
+                </tr>
+            </thead>
+            <tbody id="fundraiserBody">
+            </tbody>
+        </table>
+    </section>
+    <div class="overlay" id="overlay"></div>
+    <div class="drawer" id="drawer">
+        <div class="fac" style="justify-content: space-between;">
+            <h3 id="drawerTitle">Save</h3>
+            <div class="fac" >
+                <button id="drawerConfirm" class="btn-primary" style="margin-right: 15px;">
+                    Save
+                </button>
+                <button id="drawerClose">Cancel</button>
+            </div>
+        </div>
+        <div id="form">
+            <div class="fac input-item">
+                <label>organizer</label>
+                <input class="input" placeholder="organizer" type="text" name="ORGANIZER">
+            </div>
+            <div class="fac input-item">
+                <label>caption</label>
+                <input class="input" placeholder="caption" type="text" name="CAPTION">
+            </div>
+            <div class="fac input-item">
+                <label>category</label>
+                <select id="category" class="input" name="CATEGORY_ID">
+                    <option selected value="">Choose...</option>
+                </select>
+            </div>
+            <div class="fac input-item">
+                <label>city</label>
+                <input class="input" placeholder="city" type="text" name="CITY">
+            </div>
+            <div class="fac input-item">
+                <label>target funding</label>
+                <input class="input" placeholder="target funding" type="number" name="TARGET_FUNDING">
+            </div>
+            <div class="fac input-item">
+                <label>current funding</label>
+                <input class="input" placeholder="current funding" type="number" name="CURRENT_FUNDING">
+            </div>
+            <div class="fac input-item">
+                <label>active</label>
+                <div style="flex:1">
+                    <input class="input" type="checkbox" name="ACTIVE" style="width: auto;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>
