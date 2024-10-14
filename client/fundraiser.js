@@ -24,7 +24,7 @@ const itemContent = (fundraiser) => `
 `;
 const renderFundraisers = (data) => {
     const list = document.querySelector(".list");
-    list.innerHTML = ""; // 清空已有内容
+    list.innerHTML = ""; 
 
     if (data.length === 0) {
         list.innerHTML = "<span class='error'>Content is empty</span>";
@@ -78,7 +78,7 @@ let currentFundraiserData = {}
 // 2.0
 function renderDonation(donations) {
     const donationBody = document.querySelector('.donationBody')
-    donationBody.innerHTML = ''; // 清空当前表格
+    donationBody.innerHTML = ''; 
     donations.forEach(donation => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -134,7 +134,6 @@ function donationPage() {
             `
         });
 }
-// 捐赠
 function createDonation() {
     const inputs = document.querySelectorAll('.input')
     const data = { FUNDRAISER_ID: currentFundraiserData.FUNDRAISER_ID }
