@@ -170,15 +170,8 @@ drawerConfirm.addEventListener('click', async () => {
 });
 
 
-
-
-
-
-
-
 request.get('categories').then(data => {
     categories = data
-    // 初始化获取Fundraisers列表
     fetchFundraisers();
     renderCategories(data)
 })
